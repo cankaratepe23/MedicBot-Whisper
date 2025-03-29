@@ -4,11 +4,7 @@ export default async function transcribeAudio(inputAudio: Buffer, client: any) {
         encoding: "LINEAR16",
         sampleRateHertz: 16000,
         languageCode: "en-us",
-        speech_contexts: [
-            {
-                phrases: ["play", "skip", "pause", "resume", "disconnect"],
-            },
-        ],
+        alternativeLanguageCodes: ['tr-TR']
     };
 
     const audio = {

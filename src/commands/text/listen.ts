@@ -1,6 +1,6 @@
 import { SlashCommandBuilder, CommandInteraction, GuildMember, Client } from "discord.js";
 import { joinVoiceChannel, VoiceConnectionStatus, entersState } from "@discordjs/voice";
-import { Porcupine, BuiltinKeyword } from "@picovoice/porcupine-node";
+import { Porcupine } from "@picovoice/porcupine-node";
 import speech from "@google-cloud/speech";
 import createRecognitionStream from "../../utils/createRecognitionStream";
 import transcribeAudio from "../../utils/transcribeAudio";
@@ -13,6 +13,8 @@ export default {
         .setDescription("Connects and listen to audio in voice channel"),
 
     async execute(interaction: CommandInteraction) {
+        await interaction.deferReply();
+
         let embed;
         const member = interaction.member as GuildMember;
         const client = interaction.client as Client;
@@ -91,10 +93,10 @@ export default {
         });
 
         embed = createBasicEmbed(
-            `Bot has joined the channel ${member.voice.channel.name} and is now listening to ${member.user.tag}. Say "Bumblebee" before initiating any commands!`
+            `Bot has joined the channel ${member.voice.channel.name} and is now listening to ${member.user.tag}. Say "Medic Bot" before initiating any commands!`
         );
 
-        await interaction.reply({
+        await interaction.editReply({
             embeds: [
                 createBasicEmbed(
                     "Voice recognition service firing up...please wait a moment before initiating any commands"
@@ -109,7 +111,7 @@ export default {
 function initPorcupine() {
     // instantiate porcupine (hotword detection)
     const accessKey = process.env.PICOVOICE_ACCESS_KEY as string;
-    const porcupine = new Porcupine(accessKey, [BuiltinKeyword.BUMBLEBEE], [0.8]);
+    const porcupine = new Porcupine(accessKey, [process.env.PICOVOICE_KEYWORD_PPN as string], [0.8]);
 
     return porcupine;
 }

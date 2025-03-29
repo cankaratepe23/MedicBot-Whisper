@@ -13,7 +13,7 @@ A discord music bot capable of performing commands via voice recognition in addi
 
 ## Supported Commands (Voice & Text)
 
-Voice commands can be initiated by speaking the hotword ("bumblebee") and pausing for a very short moment before providing the desired command. Text commands can be initiated through the slash "/" command on discord.
+Voice commands can be initiated by speaking the hotword (can be configured) and pausing for a very short moment before providing the desired command. Text commands can be initiated through the slash "/" command on discord.
 
 - play {song name} - plays the first song/video yielded by a youtube search of the given {song name}. Otherwise, adds to the music queue
 - skip - Skips the current song
@@ -32,6 +32,7 @@ After using /listen, please wait a moment to let the voice recognition system in
 - Client ID (from bot)
 - Guild ID (ID of Guild the bot is located in -> see note)
 - Porcupine API Key
+- Porcupine Custom Model for Hotword Detection (.ppn)
 - Youtube Data API Key
 - Setup Google Cloud Client ADC (see [here](https://cloud.google.com/docs/authentication/provide-credentials-adc) for how to authorize your client. I personally used "User Credentials")
 
@@ -55,6 +56,7 @@ After using /listen, please wait a moment to let the voice recognition system in
     BOT_TOKEN=''
     YOUTUBE_API_KEY=''
     PICOVOICE_ACCESS_KEY=''
+    PICOVOICE_KEYWORD_PPN=''
     CLIENT_ID=''
     GUILD_ID=''
     ```
